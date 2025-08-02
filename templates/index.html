@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working API Examples Recommendations</title>
+</head>
+
+<body>
+    <h1>Working API Examples Recommendations</h1>
+
+    <form method="POST">
+        <label for="user_id">Enter User ID:</label>
+        <input type="number" name="user_id" required>
+
+        <label for="top_n">Top N Recommendations:</label>
+        <input type="number" name="top_n" value="20" min="1" max="1000">
+
+        <input type="submit" value="Get Recommendations">
+    </form>
+
+    {% if sample_user_ids %}
+        <p><strong>Try one of these sample user IDs:</strong> {{ sample_user_ids | join(', ') }}</p>
+    {% endif %}
+
+    {% if recs %}
+        <h2>JSON Output</h2>
+        <div style="background-color: #f4f4f4; padding: 10px; border-radius: 8px;">
+            <pre>{{ {
+                "user_id": user_id,
+                "top_matches": recs
+            } | tojson(indent=2) }}</pre>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
